@@ -78,6 +78,8 @@ const evNotify = function(title, message, url) {
 // if (typeof $done === "undefined") {
 //   function $done(obj) { console.log('done li ge done', obj) }
 // }
+let HEADER=[], headerArr=[];
+HEADER = newlog.split('&');
 
 /*********** 程序主要运行部分 ***************/
 if (typeof $request === "undefined") {
