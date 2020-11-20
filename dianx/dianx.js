@@ -84,6 +84,7 @@ if (typeof $request === "undefined") {
   headArr = COOKIELIST.Header.split("&");
   bodyArr = COOKIELIST.Body.split("&");
   for (var i = 0; i < headArr.length; i++) { 
+    console.log(`===================运行账号${i+1}========================`)
     const dianx_headers = sJson(headArr[i])
     const dianx_body = bodyArr[i]
     if (dianx_body && Object.keys(dianx_headers).length) exchange(dianx_headers, dianx_body)
