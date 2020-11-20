@@ -75,9 +75,9 @@ const evNotify = function(title, message, url) {
   console.log(title, message, url)
 }
 
-// if (typeof $done === "undefined") {
-//   function $done(obj) { console.log('done li ge done', obj) }
-// }
+ if (typeof $done === "undefined") {
+   function $done(obj) { console.log('done li ge done', obj) }
+ }
 let headArr = [], bodyArr = [];
 /*********** 程序主要运行部分 ***************/
 if (typeof $request === "undefined") {
