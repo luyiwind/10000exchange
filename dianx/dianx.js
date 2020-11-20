@@ -108,12 +108,22 @@ function sJson(str) {
   }
 }
 
+let lastheader = cookieMod.get('dianx_headers')||'';
+let lastbody = cookieMod.get('dianx_body')||'';
 function saveCookie() {
   if ($request.headers && $request.url.match(/api\/exchange\/consume/)) {
     // console.log($request)
-    if (cookieMod.put(JSON.stringify($request.headers), 'dianx_headers') && cookieMod.put($request.body, 'dianx_body')){
+    let newheader = ''
+    let newbody=''
+    if (lastheader!=''){
+      newheader = lastheader+'&'+JSON.stringify($request.headers); 
+    }
+    if (lastbody!=''){
+      newbody = lastbody+'&'+$request.body;
+    }
+    if (cookieMod.put(newheader, 'dianx_headers')&& cookieMod.put(newbody, 'dianx_body')){
       console.log('金豆兑换话费相关 cookie 获取成功')
-      console.log(`获取header:${JSON.stringify($request.headers)},body: ${$request.body}`)
+      console.log(`Total获取header:${newheader},body: ${newbody}`)
       evNotify('🎭 金豆兑换话费 cookie 获取成功！', '请注释掉相关复写规则。\n每天 10 点可兑换话费，请提前设置好定时任务')
     }
   } else {
