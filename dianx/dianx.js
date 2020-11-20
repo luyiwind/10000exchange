@@ -15,9 +15,9 @@
 // *建议配合 chavyleung 的电信签到脚本使用 https://github.com/chavyleung/scripts/tree/master/10000
 
 const COOKIELIST = {
-  'dianx_headers': ``,
-  'dianx_body': ``
-}
+  Header: process.env.TC_HEADER,
+  Body: process.env.TC_BODY,
+};
 
 const cookieMod = {
   get(key){
@@ -78,17 +78,19 @@ const evNotify = function(title, message, url) {
 // if (typeof $done === "undefined") {
 //   function $done(obj) { console.log('done li ge done', obj) }
 // }
-let HEADER=[], headerArr=[];
-HEADER = newlog.split('&');
-
+let headArr = [], bodyArr = [];
 /*********** 程序主要运行部分 ***************/
 if (typeof $request === "undefined") {
-  const dianx_headers = sJson(cookieMod.get('dianx_headers'))
-  const dianx_body = cookieMod.get('dianx_body')
-  if (dianx_body && Object.keys(dianx_headers).length) exchange(dianx_headers, dianx_body)
-  else {
-    evNotify('🎭 金豆兑换话费的 cookie 尚未设置', '请根据脚本内的注释，去电信营业厅 APP 进行获取')
-    $done({})
+  headArr = COOKIELIST.Header.split("&");
+  bodyArr = COOKIELIST.Body.split("&");
+  for (var i = 0; i < headArr.length; i++) { 
+    const dianx_headers = sJson(headArr[i])
+    const dianx_body = bodyArr[i]
+    if (dianx_body && Object.keys(dianx_headers).length) exchange(dianx_headers, dianx_body)
+    else {
+      evNotify('🎭 金豆兑换话费的 cookie 尚未设置', '请根据脚本内的注释，去电信营业厅 APP 进行获取')
+      $done({})
+    }
   }
 } else {
   saveCookie()
@@ -109,6 +111,7 @@ function saveCookie() {
     // console.log($request)
     if (cookieMod.put(JSON.stringify($request.headers), 'dianx_headers') && cookieMod.put($request.body, 'dianx_body')){
       console.log('金豆兑换话费相关 cookie 获取成功')
+      console.log(`获取header:${JSON.stringify($request.headers)},body: ${$request.body}`)
       evNotify('🎭 金豆兑换话费 cookie 获取成功！', '请注释掉相关复写规则。\n每天 10 点可兑换话费，请提前设置好定时任务')
     }
   } else {
