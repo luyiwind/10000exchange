@@ -13,10 +13,12 @@
 // 0 10 */3 * * https://raw.githubusercontent.com/elecV2/QuantumultX-Tools/master/dianx/dianx.js, tag=电信金豆兑换话费, img-url=https://raw.githubusercontent.com/elecV2/QuantumultX-Tools/master/dianx/dianx.png, enabled=true
 
 // *建议配合 chavyleung 的电信签到脚本使用 https://github.com/chavyleung/scripts/tree/master/10000
+let lastheader = cookieMod.get('dianx_headers')||'';
+let lastbody = cookieMod.get('dianx_body')||'';
 
 const COOKIELIST = {
-  Header: process.env.TC_HEADER,
-  Body: process.env.TC_BODY,
+  Header: lastheader||process.env.TC_HEADER,
+  Body: lastbody||process.env.TC_BODY,
 };
 
 const cookieMod = {
@@ -109,8 +111,6 @@ function sJson(str) {
   }
 }
 
-let lastheader = cookieMod.get('dianx_headers')||'';
-let lastbody = cookieMod.get('dianx_body')||'';
 function saveCookie() {
   if ($request.headers && $request.url.match(/api\/exchange\/consume/)) {
     console.log($request)
