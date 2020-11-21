@@ -81,8 +81,8 @@ const evNotify = function(title, message, url) {
 let headArr = [], bodyArr = [];
 /*********** 程序主要运行部分 ***************/
 if (typeof $request === "undefined") {
-  headArr = COOKIELIST.Header.split("&");
-  bodyArr = COOKIELIST.Body.split("&");
+  headArr = COOKIELIST.Header.split("#");
+  bodyArr = COOKIELIST.Body.split("#");
   for (var i = 0; i < headArr.length; i++) { 
     console.log(`\n===================运行账号${i+1}========================\n`)
     console.log(`==================脚本执行- 北京时间(UTC+8)：${new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000).toLocaleString()}=====================\n`)
