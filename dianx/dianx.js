@@ -34,12 +34,10 @@ const cookieMod = {
     }
   }
 }
-let lastheader = cookieMod.get('dianx_headers')||'';
-let lastbody = cookieMod.get('dianx_body')||'';
 
 const COOKIELIST = {
-  Header: lastheader||process.env.TC_HEADER,
-  Body: lastbody||process.env.TC_BODY,
+  Header: process.env.TC_HEADER,
+  Body: process.env.TC_BODY,
 };
 
 const simpPost = function(req, type) {
@@ -111,7 +109,10 @@ function sJson(str) {
   }
 }
 
+
 function saveCookie() {
+let lastheader = cookieMod.get('dianx_headers')||'';
+let lastbody = cookieMod.get('dianx_body')||'';
   if ($request.headers && $request.url.match(/api\/exchange\/consume/)) {
     console.log($request)
     let newheader = ''
