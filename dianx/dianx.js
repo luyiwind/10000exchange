@@ -95,6 +95,7 @@ if (typeof $request === "undefined") {
     }
   }
 } else {
+  evNotify('🎭 进入cookie保存！','')
   saveCookie()
 }
 /******* end 程序主要运行部分 end ***********/
@@ -112,7 +113,7 @@ let lastheader = cookieMod.get('dianx_headers')||'';
 let lastbody = cookieMod.get('dianx_body')||'';
 function saveCookie() {
   if ($request.headers && $request.url.match(/api\/exchange\/consume/)) {
-    // console.log($request)
+    console.log($request)
     let newheader = ''
     let newbody=''
     if (lastheader!=''){
