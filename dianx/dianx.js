@@ -135,7 +135,6 @@ let lastbody = cookieMod.get('dianx_body')||'';
 function exchange(headers, body) {
   const req = {
     url: 'https://wapside.189.cn:9001/api/exchange/consume',
-    method: 'POST',
     headers, body
   }
   let title = '🎭 金豆兑换话费结果通知', message = ''
