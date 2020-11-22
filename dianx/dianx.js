@@ -13,7 +13,7 @@
 // 0 10 */3 * * https://raw.githubusercontent.com/elecV2/QuantumultX-Tools/master/dianx/dianx.js, tag=电信金豆兑换话费, img-url=https://raw.githubusercontent.com/elecV2/QuantumultX-Tools/master/dianx/dianx.png, enabled=true
 
 // *建议配合 chavyleung 的电信签到脚本使用 https://github.com/chavyleung/scripts/tree/master/10000
-const $ = new Env('中国电信')
+const $ = new Env('中国电信');
 const cookieMod = {
   get(key){
     if (COOKIELIST[key]) return COOKIELIST[key]
@@ -66,6 +66,8 @@ const evNotify = function(title, message, url) {
    function $done(obj) { console.log('done li ge done', obj) }
  }
 let headArr = [], bodyArr = [];
+
+!(async() => {
 /*********** 程序主要运行部分 ***************/
 if (typeof $request === "undefined") {
   headArr = COOKIELIST.Header.split("#");
@@ -90,6 +92,10 @@ if (typeof $request === "undefined") {
   saveCookie()
 }
 /******* end 程序主要运行部分 end ***********/
+})()
+    .catch((e) => $.logErr(e))
+    .finally(() => $.done())
+
 
 function sJson(str) {
   if (typeof str === 'object') return str
