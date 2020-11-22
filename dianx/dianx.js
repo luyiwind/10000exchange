@@ -125,12 +125,17 @@ function exchange(headers, body) {
     }
     let title = '🎭 金豆兑换话费结果通知', message = ''
     $.post(req, (err, resp, data) => {
+      try{
+      if (err) {
+          console.log(err)
+          message = (err.error || err.message || err) + '\n如超时并不表示兑换失败，以实际是否扣除金豆为准'
+        } else {  
       message = res.body || res.data || res
       console.log(message)
       message = sJson(message).resoultMsg || JSON.stringify(message)
-    }).catch(err=>{
-      console.log(err)
-      message = (err.error || err.message || err) + '\n如超时并不表示兑换失败，以实际是否扣除金豆为准'
+        }
+      } catch(e) {
+       $.logErr(e, resp)
     }).finally(()=>{
       evNotify(title, message + '\n如兑换成功，通常半小时内会收到充值成功的短信')
       $done({})
