@@ -92,8 +92,7 @@ function sJson(str) {
   }
 }
 
-const simpPost = function(req, type) {	
-
+function simpPost(req, type) {	
     return new Promise((resolve, reject)=>{	
       $.post(req, (error, response, body)=>{	
         if(error) {	
@@ -104,7 +103,6 @@ const simpPost = function(req, type) {
         }	
       })	
     })	
-
 }
 
 function saveCookie() {
