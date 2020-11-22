@@ -88,6 +88,10 @@ if (typeof $request === "undefined") {
     console.log(`==================脚本执行- 北京时间(UTC+8)：${new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000).toLocaleString()}=====================\n`)
     const dianx_headers = sJson(headArr[i])
     const dianx_body = bodyArr[i]
+    console.log(headArr[i])
+    console.log(dianx_headers)
+    console.log(bodyArr[i])
+    console.log(dianx_body)
     if (dianx_body && Object.keys(dianx_headers).length) exchange(dianx_headers, dianx_body)
     else {
       evNotify('🎭 金豆兑换话费的 cookie 尚未设置', '请根据脚本内的注释，去电信营业厅 APP 进行获取')
