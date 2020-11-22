@@ -15,6 +15,7 @@
 // *建议配合 chavyleung 的电信签到脚本使用 https://github.com/chavyleung/scripts/tree/master/10000
 const $ = new Env('中国电信');
 let notify = $.isNode() ? require('./sendNotify.js') : '';
+let allmessage = "";
 const cookieMod = {
   get(key){
     if (COOKIELIST[key]) return COOKIELIST[key]
@@ -46,6 +47,7 @@ const evNotify = function(title, message, url) {
   if (typeof $notify !== "undefined") return $notify(title, '', message, url)
   if (typeof $notification !== "undefined") return $notification.post(title, '', message, url)
   console.log(title, message, url)
+  allmessage = allmessage + message + '\n';
 }
 
  if (typeof $done === "undefined") {
@@ -73,6 +75,7 @@ let headArr = [], bodyArr = [];
         $done({})
       }
     }
+    notify.sendNotify(`电信兑换`,allmessage);
   } else {
     evNotify('🎭 进入cookie保存！','')
     saveCookie()
