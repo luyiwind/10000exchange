@@ -27,7 +27,7 @@ jobs:
                   npm install
             - name: "运行 【电信兑换】"
               run: |
-                  node ./dianx/dianx.js
+                  node ./dianx/dianx2.js
               env:
                   TC_HEADER: ${{ secrets.TC_HEADER }}
                   TC_BODY: ${{ secrets.TC_BODY }}
