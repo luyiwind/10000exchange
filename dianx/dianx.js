@@ -41,21 +41,6 @@ const COOKIELIST = {
   Body: '{"id":"517f795a44472e10f82c0d305b463aff052fdc9e3cf3de7ad03e7df529a51cc2a5a36777dda38549d3be315eecf83f4e","phone":"1938fb8d1f29b81313fe4c5f58e97fc8","exchangeNum":"bd280a5462a4d643fc3003d51c38bd27"}#{"id":"517f795a44472e10f82c0d305b463aff052fdc9e3cf3de7ad03e7df529a51cc2a5a36777dda38549d3be315eecf83f4e","phone":"1bd9da5f0b798aafb643d7bc5f6f3c3c","exchangeNum":"bd280a5462a4d643fc3003d51c38bd27"}#{"id":"517f795a44472e10f82c0d305b463aff052fdc9e3cf3de7ad03e7df529a51cc2a5a36777dda38549d3be315eecf83f4e","phone":"4afeb4fa2ac1cc0ef24660c5e523bc5b","exchangeNum":"bd280a5462a4d643fc3003d51c38bd27"}#{"id":"517f795a44472e10f82c0d305b463aff052fdc9e3cf3de7ad03e7df529a51cc2a5a36777dda38549d3be315eecf83f4e","phone":"f0f1615ca872f05a83b6b98673e5a5e9","exchangeNum":"bd280a5462a4d643fc3003d51c38bd27"}#{"id":"517f795a44472e10f82c0d305b463aff052fdc9e3cf3de7ad03e7df529a51cc2a5a36777dda38549d3be315eecf83f4e","phone":"8ed31f7c54fcf5a0e72df091e47ef1d4","exchangeNum":"bd280a5462a4d643fc3003d51c38bd27"}',
 };
 
-const simpPost = function(req, type) {
-  
-    return new Promise((resolve, reject)=>{
-      $.post(req, (error, response, body)=>{
-        if(error) {
-          console.log('$httpClient error:', error)
-          reject(error)
-        } else {
-          resolve(body)
-        }
-      })
-    })
-  
-}
-
 const evNotify = function(title, message, url) {
   if (typeof $feed !== "undefined") return $feed.push(title, message, url)
   if (typeof $notify !== "undefined") return $notify(title, '', message, url)
@@ -133,22 +118,24 @@ let lastbody = cookieMod.get('dianx_body')||'';
 }
 
 function exchange(headers, body) {
-  const req = {
-    url: 'https://wapside.189.cn:9001/api/exchange/consume',
-    headers, body
-  }
-  let title = '🎭 金豆兑换话费结果通知', message = ''
-  simpPost(req).then(res=>{
-    message = res.body || res.data || res
-    console.log(message)
-    message = sJson(message).resoultMsg || JSON.stringify(message)
-  }).catch(err=>{
-    console.log(err)
-    message = (err.error || err.message || err) + '\n如超时并不表示兑换失败，以实际是否扣除金豆为准'
-  }).finally(()=>{
-    evNotify(title, message + '\n如兑换成功，通常半小时内会收到充值成功的短信')
-    $done({})
-  })
+  return new Promise(async resolve => {
+    const req = {
+      url: 'https://wapside.189.cn:9001/api/exchange/consume',
+      headers, body
+    }
+    let title = '🎭 金豆兑换话费结果通知', message = ''
+    $.post(req, (err, resp, data) => {
+      message = res.body || res.data || res
+      console.log(message)
+      message = sJson(message).resoultMsg || JSON.stringify(message)
+    }).catch(err=>{
+      console.log(err)
+      message = (err.error || err.message || err) + '\n如超时并不表示兑换失败，以实际是否扣除金豆为准'
+    }).finally(()=>{
+      evNotify(title, message + '\n如兑换成功，通常半小时内会收到充值成功的短信')
+      $done({})
+    })
+   })
 }
 
 // prettier-ignore
