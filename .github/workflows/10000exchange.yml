@@ -6,7 +6,7 @@ name: 电信兑换
 on:
     workflow_dispatch:
     schedule:
-        - cron: "56 1 * * *"
+        - cron: "57 1 * * *"
     watch:
         types: [started]
     repository_dispatch:
