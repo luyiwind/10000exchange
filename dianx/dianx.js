@@ -14,6 +14,7 @@
 
 // *建议配合 chavyleung 的电信签到脚本使用 https://github.com/chavyleung/scripts/tree/master/10000
 const $ = new Env('中国电信');
+let notify = $.isNode() ? require('./sendNotify.js') : '';
 const cookieMod = {
   get(key){
     if (COOKIELIST[key]) return COOKIELIST[key]
@@ -68,30 +69,30 @@ const evNotify = function(title, message, url) {
 let headArr = [], bodyArr = [];
 
 !(async() => {
-/*********** 程序主要运行部分 ***************/
-if (typeof $request === "undefined") {
-  headArr = COOKIELIST.Header.split("#");
-  bodyArr = COOKIELIST.Body.split("#");
-  for (var i = 0; i < headArr.length; i++) { 
-    console.log(`\n===================运行账号${i+1}========================\n`)
-    console.log(`==================脚本执行- 北京时间(UTC+8)：${new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000).toLocaleString()}=====================\n`)
-    const dianx_headers = sJson(headArr[i])
-    const dianx_body = bodyArr[i]
-    //console.log(headArr[i])
-    //console.log(dianx_headers)
-    //console.log(bodyArr[i])
-    //console.log(dianx_body)
-    if (dianx_body && Object.keys(dianx_headers).length) exchange(dianx_headers, dianx_body)
-    else {
-      evNotify('🎭 金豆兑换话费的 cookie 尚未设置', '请根据脚本内的注释，去电信营业厅 APP 进行获取')
-      $done({})
+  /*********** 程序主要运行部分 ***************/
+  if (typeof $request === "undefined") {
+    headArr = COOKIELIST.Header.split("#");
+    bodyArr = COOKIELIST.Body.split("#");
+    for (var i = 0; i < headArr.length; i++) { 
+      console.log(`\n===================运行账号${i+1}========================\n`)
+      console.log(`==================脚本执行- 北京时间(UTC+8)：${new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000).toLocaleString()}=====================\n`)
+      const dianx_headers = sJson(headArr[i])
+      const dianx_body = bodyArr[i]
+      //console.log(headArr[i])
+      //console.log(dianx_headers)
+      //console.log(bodyArr[i])
+      //console.log(dianx_body)
+      if (dianx_body && Object.keys(dianx_headers).length) exchange(dianx_headers, dianx_body)
+      else {
+        evNotify('🎭 金豆兑换话费的 cookie 尚未设置', '请根据脚本内的注释，去电信营业厅 APP 进行获取')
+        $done({})
+      }
     }
+  } else {
+    evNotify('🎭 进入cookie保存！','')
+    saveCookie()
   }
-} else {
-  evNotify('🎭 进入cookie保存！','')
-  saveCookie()
-}
-/******* end 程序主要运行部分 end ***********/
+  /******* end 程序主要运行部分 end ***********/
 })()
     .catch((e) => $.logErr(e))
     .finally(() => $.done())
