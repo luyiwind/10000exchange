@@ -82,7 +82,7 @@ let headArr = [], bodyArr = [];
       //console.log(dianx_headers)
       //console.log(bodyArr[i])
       //console.log(dianx_body)
-      if (dianx_body && Object.keys(dianx_headers).length) exchange(dianx_headers, dianx_body)
+      if (dianx_body && Object.keys(dianx_headers).length) await exchange(dianx_headers, dianx_body)
       else {
         evNotify('🎭 金豆兑换话费的 cookie 尚未设置', '请根据脚本内的注释，去电信营业厅 APP 进行获取')
         $done({})
