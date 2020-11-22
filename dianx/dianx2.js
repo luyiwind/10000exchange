@@ -15,8 +15,8 @@
 // *建议配合 chavyleung 的电信签到脚本使用 https://github.com/chavyleung/scripts/tree/master/10000
 
 const COOKIELIST = {
-  'dianx_headers': ``,
-  'dianx_body': ``
+  'dianx_headers': `{"Cookie":"s_fid=407E5499351D8498-30FE1C4AD40BA996; s_cc=true; lvid=cd6f968543368feb3efed9118716646b; nvid=1; svid=0E4F4AA6D0A34119527279B438C41CA3","Accept":"application/json, text/plain, */*","Content-Type":"application/json;charset=UTF-8","Origin":"https://wapside.189.cn:9001","Referer":"https://wapside.189.cn:9001/resources/dist/memberItems.html?ticket=7ab21452310bb05b33c81928fd5c1ab7cabd49733f7fe4803f6caa0084b339b8&version=8.3.0&id=8a00fad571f8bb430171f8bea1380000","Connection":"keep-alive","Host":"wapside.189.cn:9001","Accept-Language":"zh-cn","User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 12_4_8 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;CtClient;8.3.0;iOS;12.4.8;iPad Air","Accept-Encoding":"br, gzip, deflate","Content-Length":"197"}`,
+  'dianx_body': `{"id":"517f795a44472e10f82c0d305b463aff052fdc9e3cf3de7ad03e7df529a51cc2a5a36777dda38549d3be315eecf83f4e","phone":"1938fb8d1f29b81313fe4c5f58e97fc8","exchangeNum":"bd280a5462a4d643fc3003d51c38bd27"}`
 }
 
 const cookieMod = {
