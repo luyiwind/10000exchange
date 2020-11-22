@@ -136,11 +136,12 @@ function exchange(headers, body) {
         }
       } catch(e) {
        $.logErr(e, resp)
-    }).finally(()=>{
+    } finally {
       evNotify(title, message + '\n如兑换成功，通常半小时内会收到充值成功的短信')
       $done({})
-    })
+    }
    })
+  })
 }
 
 // prettier-ignore
