@@ -92,6 +92,20 @@ function sJson(str) {
   }
 }
 
+const simpPost = function(req, type) {	
+
+    return new Promise((resolve, reject)=>{	
+      $.post(req, (error, response, body)=>{	
+        if(error) {	
+          console.log('$httpClient error:', error)	
+          reject(error)	
+        } else {	
+          resolve(body)	
+        }	
+      })	
+    })	
+
+}
 
 function saveCookie() {
 let lastheader = cookieMod.get('dianx_headers')||'';
@@ -116,31 +130,23 @@ let lastbody = cookieMod.get('dianx_body')||'';
   }
   $done({})
 }
-
 function exchange(headers, body) {
-  return new Promise(async resolve => {
-    const req = {
-      url: 'https://wapside.189.cn:9001/api/exchange/consume',
-      headers, body
-    }
-    let title = '🎭 金豆兑换话费结果通知', message = ''
-    $.post(req, (err, resp, data) => {
-      try{
-      if (err) {
-          console.log(err)
-          message = (err.error || err.message || err) + '\n如超时并不表示兑换失败，以实际是否扣除金豆为准'
-        } else {  
-      message = res.body || res.data || res
-      console.log(message)
-      message = sJson(message).resoultMsg || JSON.stringify(message)
-        }
-      } catch(e) {
-       $.logErr(e, resp)
-    } finally {
-      evNotify(title, message + '\n如兑换成功，通常半小时内会收到充值成功的短信')
-      $done({})
-    }
-   })
+  const req = {
+    url: 'https://wapside.189.cn:9001/api/exchange/consume',
+    method: 'POST',
+    headers, body
+  }
+  let title = '🎭 金豆兑换话费结果通知', message = ''
+  simpPost(req).then(res=>{
+    message = res.body || res.data || res
+    console.log(message)
+    message = sJson(message).resoultMsg || JSON.stringify(message)
+  }).catch(err=>{
+    console.log(err)
+    message = (err.error || err.message || err) + '\n如超时并不表示兑换失败，以实际是否扣除金豆为准'
+  }).finally(()=>{
+    evNotify(title, message + '\n如兑换成功，通常半小时内会收到充值成功的短信')
+    $done({})
   })
 }
 
