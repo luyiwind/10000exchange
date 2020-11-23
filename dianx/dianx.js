@@ -76,7 +76,7 @@ let headArr = [], bodyArr = [];
       //  $done({})
      // }
     }
-    notify.sendNotify(`电信兑换`,`${allmessage}`);
+    //notify.sendNotify(`电信兑换`,`${allmessage}`);
   } else {
     evNotify('🎭 进入cookie保存！','')
     saveCookie()
