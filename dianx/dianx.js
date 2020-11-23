@@ -47,7 +47,7 @@ const evNotify = function(title, message, url) {
   if (typeof $notify !== "undefined") return $notify(title, '', message, url)
   if (typeof $notification !== "undefined") return $notification.post(title, '', message, url)
   console.log(title, message, url)
-  allmessage = allmessage + message + '\n';
+  allmessage = allmessage +title + message + '\n';
 }
 
  if (typeof $done === "undefined") {
@@ -76,7 +76,7 @@ let headArr = [], bodyArr = [];
       //  $done({})
      // }
     }
-    notify.sendNotify(`电信兑换`,allmessage);
+    notify.sendNotify(`电信兑换`,`${allmessage}`);
   } else {
     evNotify('🎭 进入cookie保存！','')
     saveCookie()
