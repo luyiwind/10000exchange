@@ -44,8 +44,6 @@ const COOKIELIST = {
   Body: '{"id":"517f795a44472e10f82c0d305b463aff052fdc9e3cf3de7ad03e7df529a51cc2a5a36777dda38549d3be315eecf83f4e","phone":"1938fb8d1f29b81313fe4c5f58e97fc8","exchangeNum":"bd280a5462a4d643fc3003d51c38bd27"}#{"id":"517f795a44472e10f82c0d305b463aff052fdc9e3cf3de7ad03e7df529a51cc2a5a36777dda38549d3be315eecf83f4e","phone":"1bd9da5f0b798aafb643d7bc5f6f3c3c","exchangeNum":"bd280a5462a4d643fc3003d51c38bd27"}#{"id":"517f795a44472e10f82c0d305b463aff052fdc9e3cf3de7ad03e7df529a51cc2a5a36777dda38549d3be315eecf83f4e","phone":"4afeb4fa2ac1cc0ef24660c5e523bc5b","exchangeNum":"bd280a5462a4d643fc3003d51c38bd27"}#{"id":"517f795a44472e10f82c0d305b463aff052fdc9e3cf3de7ad03e7df529a51cc2a5a36777dda38549d3be315eecf83f4e","phone":"f0f1615ca872f05a83b6b98673e5a5e9","exchangeNum":"bd280a5462a4d643fc3003d51c38bd27"}#{"id":"517f795a44472e10f82c0d305b463aff052fdc9e3cf3de7ad03e7df529a51cc2a5a36777dda38549d3be315eecf83f4e","phone":"8ed31f7c54fcf5a0e72df091e47ef1d4","exchangeNum":"bd280a5462a4d643fc3003d51c38bd27"}',
 };
 
-var cookieindex = 0
-
 const evNotify = function(title, message, url) {
   if (typeof $feed !== "undefined") return $feed.push(title, message, url)
   if (typeof $notify !== "undefined") return $notify(title, '', message, url)
@@ -64,10 +62,11 @@ let headArr = [], bodyArr = [];
   if (typeof $request === "undefined") {
     headArr = COOKIELIST.Header.split("#");
     bodyArr = COOKIELIST.Body.split("#");
-      console.log(`\n===================运行账号${cookieindex+1}========================\n`)
+     for (var i = 0; i < headArr.length; i++) {
+      console.log(`\n===================运行账号${i+1}========================\n`)
       console.log(`==================脚本执行- 北京时间(UTC+8)：${new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000).toLocaleString()}=====================\n`)
-      const dianx_headers = sJson(headArr[cookieindex])
-      const dianx_body = bodyArr[cookieindex]
+      const dianx_headers = sJson(headArr[i])
+      const dianx_body = bodyArr[i]
       //console.log(headArr[i])
       //console.log(dianx_headers)
       //console.log(bodyArr[i])
@@ -78,6 +77,7 @@ let headArr = [], bodyArr = [];
       //  evNotify('🎭 金豆兑换话费的 cookie 尚未设置', '请根据脚本内的注释，去电信营业厅 APP 进行获取')
       //  $done({})
      // }
+     }
     //notify.sendNotify(`电信兑换`,`${allmessage}`);
   } else {
     evNotify('🎭 进入cookie保存！','')
