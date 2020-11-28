@@ -138,7 +138,7 @@ function exchange(headers, body) {
   const req = {
     url: 'https://wapside.189.cn:9001/api/exchange/consume',
     method: 'POST',
-    headers, body
+    headers, body,timeout:0
   }
   let title = '🎭 金豆兑换话费结果通知', message = ''
   simpPost(req).then(res=>{
