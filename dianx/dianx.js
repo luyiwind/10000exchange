@@ -62,9 +62,7 @@ let headArr = [], bodyArr = [];
   if (typeof $request === "undefined") {
     headArr = COOKIELIST.Header.split("#");
     bodyArr = COOKIELIST.Body.split("#");
-    var i = 0
-    for (var num = 0;num < 20; num++) {
-     for (i = 0; i < headArr.length; i++) {
+     for (var i = 0; i < headArr.length; i++) {
       console.log(`\n===================运行账号${i+1}========================\n`)
       console.log(`==================脚本执行- 北京时间(UTC+8)：${new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000).toLocaleString()}=====================\n`)
       const dianx_headers = sJson(headArr[i])
@@ -80,7 +78,6 @@ let headArr = [], bodyArr = [];
       //  $done({})
      // }
      }
-    }
     //notify.sendNotify(`电信兑换`,`${allmessage}`);
   } else {
     evNotify('🎭 进入cookie保存！','')
@@ -141,7 +138,7 @@ function exchange(headers, body) {
   const req = {
     url: 'https://wapside.189.cn:9001/api/exchange/consume',
     method: 'POST',
-    headers, body,timeout:0
+    headers, body
   }
   let title = '🎭 金豆兑换话费结果通知', message = ''
   simpPost(req).then(res=>{
